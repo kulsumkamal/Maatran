@@ -15,12 +15,12 @@ public abstract class AlgorithmiaTask<T> extends AsyncTask<T, Void, AlgoResponse
     private String algoUrl;
     private AlgorithmiaClient client;
     private Algorithm algo;
-    private final String api_key="abc";
+    private final String api_key = "abc"; //To be replaced by API Key
 
     public AlgorithmiaTask() {
         super();
 
-        this.algoUrl = "algoUrl";
+        this.algoUrl = "algoUrl"; //To be replaced by algorithm url
         this.client = Algorithmia.client(api_key);
         this.algo = client.algo(algoUrl);
     }

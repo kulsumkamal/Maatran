@@ -9,10 +9,13 @@ import com.algorithmia.algo.AlgoSuccess;
 import java.util.ArrayList;
 
 public class InputHandler {
+    //output stores prediction
     String output;
     void putInput(ArrayList<String> inputList)
     {
         String input = inputList.toString();
+        //Inputs to be sent as comma separated string
+        //To be handled by python script in algorithmia
         input = input.replace("[", "")
                 .replace("]", "")
                 .replace(" ", "");
