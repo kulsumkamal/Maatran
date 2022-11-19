@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
+    implementation "com.algorithmia:algorithmia-android:1.0.1"
 //Blur background
     implementation 'com.eightbitlab:blurview:1.6.6'
 }
