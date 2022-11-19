@@ -13,6 +13,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -41,6 +42,7 @@ public class BluetoothChatService {
 //    private AcceptThread mInsecureAcceptThread;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
+    private InputHandler mInputHandler;
     private int mState;
     private int mNewState;
 
@@ -72,6 +74,7 @@ public class BluetoothChatService {
         mState = STATE_NONE;
         mNewState = mState;
         mHandler = handler;
+        mInputHandler = new InputHandler();
     }
 
     /**
@@ -481,12 +484,14 @@ public class BluetoothChatService {
         private final BluetoothSocket mmSocket;
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
+        ArrayList<String> inputList;
 
         public ConnectedThread(BluetoothSocket socket) {
             //Log.d(TAG, "create ConnectedThread: " + socketType);
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
+            inputList = new ArrayList<>();
 
             // Get the BluetoothSocket input and output streams
             try {
@@ -511,7 +516,13 @@ public class BluetoothChatService {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
-
+                    //Sending for model prediction
+                    String readMessage = new String(buffer, 0, bytes);
+                    inputList.add(readMessage);
+                    if(inputList.size()==4) {
+                        mInputHandler.putInput(inputList);
+                        inputList.clear();
+                    }
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();

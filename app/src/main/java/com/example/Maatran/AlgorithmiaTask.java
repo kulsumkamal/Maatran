@@ -15,8 +15,9 @@ public abstract class AlgorithmiaTask<T> extends AsyncTask<T, Void, AlgoResponse
     private String algoUrl;
     private AlgorithmiaClient client;
     private Algorithm algo;
+    private final String api_key="abc";
 
-    public AlgorithmiaTask(String api_key) {
+    public AlgorithmiaTask() {
         super();
 
         this.algoUrl = "algoUrl";
